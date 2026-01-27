@@ -27,5 +27,5 @@ This static site includes the following sections (see [index.html](index.html)):
 
 ## Contact
 - Email: jaiprakash1595@gmail.com
-- LinkedIn: https://www.linkedin.com/in/jai-prakash-52132012a
+- LinkedIn: https://www.linkedin.com/in/jaiprakash1595
 - GitHub: https://github.com/the-codewizard
