@@ -11,7 +11,7 @@ A simple personal portfolio website for Jai Prakash showcasing skills, experienc
 ## Overview
 This static site includes the following sections (see [index.html](index.html)):
 - About / Intro (hero with typing effect)
-- Skills (`#skills`) — Backend, Frontend, Database, Tools & Platforms, DevOps
+- Skills (`#skills`) — Backend, Frontend, Database, Tools & Platforms
 - Experience (`#experience`) — ITOrizon, Ensatus, Qleverlabs with project details
 - Awards (`#awards`)
 - Education (`#education`)
