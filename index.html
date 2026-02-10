@@ -29,10 +29,73 @@
                 <li><a href="./assets/documents/Jai Prakash V - Sr Full Stack Developer.pdf" target="_blank">Resume</a></li>
             </ul>
         </nav>
-        <button class="mobile-menu-toggle" id="menu" aria-label="Toggle menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fa-solid fa-palette"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="menu" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
     </header>
+
+    <!-- Theme Selector Modal -->
+    <div class="theme-modal" id="themeModal">
+        <div class="theme-modal-content">
+            <div class="theme-modal-header">
+                <h3>Choose Theme</h3>
+                <button class="theme-modal-close" id="closeThemeModal" aria-label="Close">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="theme-options">
+                <button class="theme-option" data-theme="dark">
+                    <div class="theme-preview theme-preview-dark">
+                        <div class="preview-header"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <span class="theme-name">Dark</span>
+                    <i class="fa-solid fa-check theme-check"></i>
+                </button>
+                <button class="theme-option" data-theme="light">
+                    <div class="theme-preview theme-preview-light">
+                        <div class="preview-header"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <span class="theme-name">Light</span>
+                    <i class="fa-solid fa-check theme-check"></i>
+                </button>
+                <button class="theme-option" data-theme="warm">
+                    <div class="theme-preview theme-preview-warm">
+                        <div class="preview-header"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <span class="theme-name">Warm</span>
+                    <i class="fa-solid fa-check theme-check"></i>
+                </button>
+                <button class="theme-option" data-theme="ocean">
+                    <div class="theme-preview theme-preview-ocean">
+                        <div class="preview-header"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <span class="theme-name">Ocean</span>
+                    <i class="fa-solid fa-check theme-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -317,7 +380,7 @@
             <div class="footer-content">
                 <p class="location">Based in India → <strong id="istTime"></strong></p>
                 <div class="socials">
-                    <a href="mailto:your.email@example.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
+                    <a href="/cdn-cgi/l/email-protection#30495f45421e555d51595c705548515d405c551e535f5d" target="_blank" rel="noopener noreferrer" aria-label="Email">
                         <i class="fa-solid fa-square-envelope"></i>
                     </a>
                     <a href="https://www.linkedin.com/in/jaiprakash1595" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -333,8 +396,57 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
+        // Theme Switcher
+        const themeToggle = document.getElementById('themeToggle');
+        const themeModal = document.getElementById('themeModal');
+        const closeThemeModal = document.getElementById('closeThemeModal');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        
+        // Get saved theme or default to 'dark'
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateActiveTheme();
+
+        // Open theme modal
+        themeToggle.addEventListener('click', () => {
+            themeModal.classList.add('active');
+        });
+
+        // Close theme modal
+        closeThemeModal.addEventListener('click', () => {
+            themeModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        themeModal.addEventListener('click', (e) => {
+            if (e.target === themeModal) {
+                themeModal.classList.remove('active');
+            }
+        });
+
+        // Theme selection
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const selectedTheme = option.getAttribute('data-theme');
+                currentTheme = selectedTheme;
+                document.documentElement.setAttribute('data-theme', selectedTheme);
+                localStorage.setItem('theme', selectedTheme);
+                updateActiveTheme();
+            });
+        });
+
+        function updateActiveTheme() {
+            themeOptions.forEach(option => {
+                if (option.getAttribute('data-theme') === currentTheme) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+        }
+
         // IST Time Display
         const istTime = document.querySelector('#istTime');
         function updateTime() {
@@ -398,6 +510,3 @@
             });
         });
     </script>
-</body>
-
-</html>
