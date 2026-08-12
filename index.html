@@ -11,7 +11,23 @@
   <link rel="stylesheet" href="./style.css">
   <title>Jai Prakash — Technical Lead & Full Stack Developer</title>
 </head>
-<body>
+<body class="loading">
+  <div class="site-loader" id="siteLoader" role="progressbar" aria-label="Loading portfolio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="loader-meta">
+      <span>Jai Prakash</span>
+      <span>Portfolio · 2026</span>
+    </div>
+    <div class="loader-center">
+      <p>Building the experience</p>
+      <div class="loader-progress">
+        <span id="loaderCount">000</span><sup>%</sup>
+      </div>
+    </div>
+    <div class="loader-track" aria-hidden="true">
+      <span id="loaderBar"></span>
+    </div>
+  </div>
+
   <div id="cursor-dot" aria-hidden="true"></div>
   <div id="cursor-ring" aria-hidden="true"></div>
 
@@ -322,6 +338,42 @@
   </footer>
 
   <script>
+    const loader = document.getElementById('siteLoader');
+    const loaderCount = document.getElementById('loaderCount');
+    const loaderBar = document.getElementById('loaderBar');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishLoader = () => {
+      loaderCount.textContent = '100';
+      loaderBar.style.transform = 'scaleX(1)';
+      loader.setAttribute('aria-valuenow', '100');
+      setTimeout(() => {
+        loader.classList.add('is-complete');
+        document.body.classList.remove('loading');
+        setTimeout(() => loader.remove(), prefersReducedMotion ? 20 : 950);
+      }, prefersReducedMotion ? 0 : 180);
+    };
+
+    if (prefersReducedMotion) {
+      finishLoader();
+    } else {
+      const loaderStartedAt = performance.now();
+      const loaderDuration = 1450;
+      const updateLoader = (now) => {
+        const progress = Math.min((now - loaderStartedAt) / loaderDuration, 1);
+        const value = Math.floor(progress * 100);
+        loaderCount.textContent = String(value).padStart(3, '0');
+        loaderBar.style.transform = `scaleX(${progress})`;
+        loader.setAttribute('aria-valuenow', String(value));
+        if (progress < 1) {
+          requestAnimationFrame(updateLoader);
+        } else {
+          finishLoader();
+        }
+      };
+      requestAnimationFrame(updateLoader);
+    }
+
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     const finePointer = window.matchMedia('(pointer: fine)').matches;
