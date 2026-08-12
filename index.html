@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="./style.css">
   <title>Jai Prakash — Technical Lead & Full Stack Developer</title>
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    window.addEventListener('pageshow', () => window.scrollTo(0, 0));
+  </script>
 </head>
 <body class="loading">
   <div class="site-loader" id="siteLoader" role="progressbar" aria-label="Loading portfolio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -182,7 +189,7 @@
                 <span class="career-index">01</span>
               </div>
               <p class="career-summary">
-                Leading the engineering of UCBOS, a metadata-driven no-code platform for composable
+                Leading the engineering of Karolium, a metadata-driven no-code platform for composable
                 business logic, workflow automation, and data interpretation.
               </p>
               <ul class="impact-list">
@@ -254,30 +261,60 @@
         <div class="section-kicker reveal">04 — Selected Work</div>
         <h2 class="section-title reveal" id="projects-title">Products, platforms<br>and <em>lasting impact.</em></h2>
         <div class="project-grid">
-          <article class="project-card reveal">
+          <a class="project-card project-card-branded reveal" href="https://karolium.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karolium website">
             <span class="project-type">Enterprise platform</span>
-            <h3>UCBOS</h3>
-            <p>A universally compatible no-code platform combining metadata, workflow automation, NoSQL, and intelligent processing.</p>
+            <span class="project-logo-mark" aria-hidden="true">
+              <img class="karolium-logo" src="./assets/images/karolium-logo.png" alt="" width="512" height="358">
+            </span>
+            <h3>Karolium</h3>
+            <ul class="project-points">
+              <li>Unifies zero-code application development, integration, orchestration, operations, and artificial intelligence capabilities.</li>
+              <li>Connects legacy systems with modern applications while automating complex enterprise workflows.</li>
+              <li>Provides composable solutions for procurement, compliance, warehousing, manufacturing, and partner collaboration.</li>
+              <li>Accelerates digital transformation while reducing dependency on expensive traditional custom development.</li>
+            </ul>
             <span class="project-arrow">↗</span>
-          </article>
-          <article class="project-card reveal">
+          </a>
+          <article class="project-card project-card-branded reveal">
             <span class="project-type">Operations</span>
+            <span class="project-logo-mark project-icon-mark" aria-hidden="true">
+              <i class="fa-solid fa-warehouse"></i>
+            </span>
             <h3>Warehouse Management</h3>
-            <p>An end-to-end warehouse application with Oracle Fusion authentication, barcode workflows, and network printing.</p>
-            <span class="project-arrow">↗</span>
+            <ul class="project-points">
+              <li>Supports secure user authentication through existing Oracle Fusion account credentials.</li>
+              <li>Enables warehouse teams to search and update products using barcode workflows.</li>
+              <li>Integrates network printers for direct document printing during daily operations.</li>
+            </ul>
           </article>
-          <article class="project-card reveal">
+          <a class="project-card project-card-branded reveal" href="https://www.truecover.net/" target="_blank" rel="noopener noreferrer" aria-label="Visit TrueCover website">
             <span class="project-type">Insurtech</span>
+            <span class="project-logo-mark" aria-hidden="true">
+              <img src="./assets/images/truecover-logo.png" alt="" width="200" height="33">
+            </span>
             <h3>TrueCover</h3>
-            <p>Claims automation with policy enrolment, fraud analytics, OCR processing, and ecosystem integrations.</p>
+            <ul class="project-points">
+              <li>Automates insurance claims for insurers, administrators, brokers, employers, and hospitals.</li>
+              <li>Combines policy smart contracts, intelligent document processing, OCR, and fraud analytics.</li>
+              <li>Connects benefit plans with HRMS, insurer, TPA, and hospital information systems.</li>
+              <li>Creates secure healthcare data exchanges supporting faster and more accurate settlements.</li>
+            </ul>
             <span class="project-arrow">↗</span>
-          </article>
-          <article class="project-card reveal">
+          </a>
+          <a class="project-card project-card-branded reveal" href="https://www.eduqfix.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit EduQfix website">
             <span class="project-type">Edtech</span>
+            <span class="project-logo-mark" aria-hidden="true">
+              <img src="./assets/images/eduqfix-logo.svg" alt="" width="75" height="32">
+            </span>
             <h3>EduQfix</h3>
-            <p>A unified digital ecosystem for fee collection, stakeholder management, institutional workflows, and services.</p>
+            <ul class="project-points">
+              <li>Unifies institutional fee collection, administration, communication, learning, and student services.</li>
+              <li>Supports payment gateways, links, instalments, reconciliation, configurable receipts, and detailed reporting.</li>
+              <li>Manages admissions, marketplaces, financing, announcements, libraries, assignments, timetables, and attendance.</li>
+              <li>Connects administrators, teachers, students, and parents through integrated academic workflows.</li>
+            </ul>
             <span class="project-arrow">↗</span>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -348,6 +385,7 @@
       loaderBar.style.transform = 'scaleX(1)';
       loader.setAttribute('aria-valuenow', '100');
       setTimeout(() => {
+        window.scrollTo(0, 0);
         loader.classList.add('is-complete');
         document.body.classList.remove('loading');
         setTimeout(() => loader.remove(), prefersReducedMotion ? 20 : 950);
