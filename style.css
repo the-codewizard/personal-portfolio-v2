@@ -119,18 +119,46 @@ body:has(a:hover, button:hover) #cursor-ring {
   backdrop-filter: blur(10px);
 }
 
-.brand {
+.header-location {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
   color: var(--warm);
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  line-height: 1.55;
+  text-transform: uppercase;
+  transition: color 0.2s;
 }
 
-.brand sup {
-  color: var(--amber);
+.header-location > span:not(.header-separator) {
+  color: var(--warm);
+  font-family: var(--mono);
   font-size: 9px;
-  vertical-align: super;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+}
+
+.header-time {
+  color: var(--warm);
+}
+
+.header-separator {
+  display: block;
+  width: 1px;
+  height: 14px;
+  background: rgba(245, 201, 122, 0.55);
+  box-shadow: 0 0 6px rgba(245, 201, 122, 0.18);
+}
+
+.header-location:hover {
+  color: var(--amber);
+}
+
+.header-location:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 6px;
 }
 
 .nav-links {

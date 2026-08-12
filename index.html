@@ -16,7 +16,11 @@
   <div id="cursor-ring" aria-hidden="true"></div>
 
   <header class="site-header">
-    <a class="brand" href="#home" aria-label="Jai Prakash, home">JP<sup>®</sup></a>
+    <a class="header-location" href="#home" aria-label="Jai Prakash, home">
+      <span>Bengaluru, IN</span>
+      <span class="header-separator" aria-hidden="true"></span>
+      <span class="header-time" id="istTime"></span>
+    </a>
     <nav aria-label="Main navigation">
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
@@ -58,7 +62,6 @@
       </div>
       <div class="hero-meta">
         <span><i class="status-dot"></i> Available for meaningful challenges</span>
-        <span>Bengaluru, India · <strong id="istTime"></strong></span>
       </div>
       <a class="scroll-hint" href="#about" aria-label="Scroll to about section">
         <span class="scroll-line"></span>
@@ -314,7 +317,6 @@
   </main>
 
   <footer>
-    <a class="brand" href="#home">JP<sup>®</sup></a>
     <p>© <span id="year"></span> Jai Prakash. Designed &amp; built with purpose.</p>
     <a href="#home">Back to top ↑</a>
   </footer>
