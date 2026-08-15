@@ -391,12 +391,12 @@ body:has(a:hover, button:hover) #cursor-ring {
   position: absolute;
   z-index: 0;
   top: 50%;
-  right: -8%;
-  width: min(760px, 62vw);
+  left: 50%;
+  width: 146%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(245, 201, 122, 0.18), rgba(200, 142, 50, 0.05) 42%, transparent 70%);
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   animation: pulse 5s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -404,7 +404,7 @@ body:has(a:hover, button:hover) #cursor-ring {
 @keyframes pulse {
   to {
     opacity: 0.78;
-    transform: translateY(-50%) scale(1.08);
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
