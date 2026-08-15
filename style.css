@@ -382,26 +382,21 @@ body:has(a:hover, button:hover) #cursor-ring {
 
 .hero {
   position: relative;
-  display: flex;
   min-height: 100svh;
   overflow: hidden;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 160px 24px 110px;
-  text-align: center;
+  padding: 150px 48px 100px;
 }
 
 .hero-glow {
   position: absolute;
   z-index: 0;
   top: 50%;
-  left: 50%;
-  width: min(760px, 80vw);
+  right: -8%;
+  width: min(760px, 62vw);
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(245, 201, 122, 0.18), rgba(200, 142, 50, 0.05) 42%, transparent 70%);
-  transform: translate(-50%, -53%);
+  transform: translateY(-50%);
   animation: pulse 5s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -409,14 +404,45 @@ body:has(a:hover, button:hover) #cursor-ring {
 @keyframes pulse {
   to {
     opacity: 0.78;
-    transform: translate(-50%, -53%) scale(1.1);
+    transform: translateY(-50%) scale(1.08);
   }
+}
+
+.hero-shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  max-width: 1320px;
+  min-height: calc(100svh - 250px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(390px, 0.85fr);
+  align-items: center;
+  gap: clamp(48px, 7vw, 110px);
+  margin: 0 auto;
+}
+
+.hero-copy-block {
+  max-width: 790px;
+}
+
+.hero-visual {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1;
+  justify-self: end;
+  opacity: 0;
+  animation: visual-enter 1.1s 0.45s forwards;
+}
+
+@keyframes visual-enter {
+  from { opacity: 0; transform: translateX(30px) scale(0.96); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 .hero-ring {
   position: absolute;
   z-index: 0;
-  top: 59%;
+  top: 50%;
   left: 50%;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -424,9 +450,9 @@ body:has(a:hover, button:hover) #cursor-ring {
 }
 
 .hero-ring-one {
-  width: 350px;
-  height: 350px;
-  border: 1px solid rgba(245, 201, 122, 0.1);
+  width: 68%;
+  height: 68%;
+  border: 1px solid rgba(245, 201, 122, 0.22);
   animation: spin 28s linear infinite;
 }
 
@@ -443,14 +469,141 @@ body:has(a:hover, button:hover) #cursor-ring {
 }
 
 .hero-ring-two {
-  width: 540px;
-  height: 540px;
-  border: 1px dashed rgba(245, 201, 122, 0.06);
+  width: 94%;
+  height: 94%;
+  border: 1px dashed rgba(245, 201, 122, 0.12);
   animation: spin 55s linear infinite reverse;
 }
 
 @keyframes spin {
   to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.system-axis {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(90deg, transparent, rgba(245, 201, 122, 0.22), transparent);
+  transform: translate(-50%, -50%);
+}
+
+.system-axis-horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.system-axis-vertical {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(245, 201, 122, 0.22), transparent);
+}
+
+.system-core {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: 168px;
+  height: 168px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 201, 122, 0.42);
+  border-radius: 50%;
+  background: rgba(13, 13, 18, 0.82);
+  backdrop-filter: blur(8px);
+  transform: translate(-50%, -50%);
+}
+
+.system-core::before {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(245, 201, 122, 0.1);
+  border-radius: inherit;
+  content: "";
+}
+
+.system-core strong {
+  color: var(--warm);
+  font-family: var(--serif);
+  font-size: 68px;
+  font-weight: 300;
+  letter-spacing: -0.08em;
+  line-height: 0.8;
+}
+
+.system-core span {
+  margin-top: 13px;
+  color: var(--amber);
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.system-node {
+  position: absolute;
+  z-index: 3;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  background: rgba(6, 6, 8, 0.86);
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.system-node::before {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(245, 201, 122, 0.7);
+  content: "";
+}
+
+.system-node-one {
+  top: 14%;
+  left: 10%;
+}
+
+.system-node-one::before {
+  right: -3px;
+  bottom: -3px;
+}
+
+.system-node-two {
+  top: 29%;
+  right: 0;
+}
+
+.system-node-two::before {
+  bottom: -3px;
+  left: -3px;
+}
+
+.system-node-three {
+  right: 10%;
+  bottom: 12%;
+}
+
+.system-node-three::before {
+  top: -3px;
+  left: -3px;
+}
+
+.visual-caption {
+  position: absolute;
+  right: 8%;
+  bottom: 2%;
+  left: 8%;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .particles {
@@ -491,13 +644,12 @@ body:has(a:hover, button:hover) #cursor-ring {
 }
 
 .eyebrow {
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 28px;
   opacity: 0;
   animation: fade-up 0.8s 0.15s forwards;
 }
 
-.eyebrow::before,
 .eyebrow::after,
 .section-kicker::before {
   width: 24px;
@@ -509,14 +661,14 @@ body:has(a:hover, button:hover) #cursor-ring {
 .hero h1 {
   position: relative;
   z-index: 2;
-  max-width: 1100px;
+  max-width: 790px;
   margin-bottom: 28px;
   color: var(--warm);
   font-family: var(--serif);
-  font-size: clamp(58px, 8.3vw, 128px);
+  font-size: clamp(68px, 7.2vw, 112px);
   font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 0.87;
+  letter-spacing: -0.055em;
+  line-height: 0.84;
   opacity: 0;
   animation: fade-up 0.9s 0.3s forwards;
 }
@@ -530,7 +682,7 @@ body:has(a:hover, button:hover) #cursor-ring {
 .hero-copy {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 560px;
   margin-bottom: 36px;
   color: var(--muted);
   font-size: 14px;
@@ -803,12 +955,13 @@ section:not(.hero) {
 
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   border: 1px solid var(--border);
 }
 
 .skill-card {
   position: relative;
+  grid-column: span 3;
   min-height: 260px;
   padding: 38px 34px;
   border-right: 1px solid var(--border);
@@ -817,11 +970,18 @@ section:not(.hero) {
   transition: background 0.3s;
 }
 
-.skill-card:nth-child(3n) {
+.skill-card:nth-child(1),
+.skill-card:nth-child(2) {
+  grid-column: span 6;
+  min-height: 300px;
+}
+
+.skill-card:nth-child(2),
+.skill-card:nth-child(6) {
   border-right: 0;
 }
 
-.skill-card:nth-last-child(-n + 3) {
+.skill-card:nth-last-child(-n + 4) {
   border-bottom: 0;
 }
 
@@ -973,30 +1133,54 @@ section:not(.hero) {
 
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  border: 1px solid var(--border);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 1px;
+  padding: 1px;
+  background: var(--border);
 }
 
 .project-card {
   position: relative;
   min-height: 300px;
   padding: 46px;
-  border-bottom: 1px solid var(--border);
   background: var(--surface);
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.35s;
+}
+
+.project-card:first-child {
+  grid-row: span 2;
+  min-height: 680px;
+}
+
+.project-card:last-child {
+  grid-column: 1 / -1;
+  min-height: 360px;
 }
 
 .project-card:has(.project-arrow) {
   padding-bottom: 90px;
 }
 
-.project-card:last-child {
-  border-bottom: 0;
-}
-
 .project-card:hover {
   background: var(--surface-hover);
+  transform: translateY(-4px);
 }
+
+.project-card::after {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  color: rgba(255, 255, 255, 0.035);
+  font-family: var(--serif);
+  font-size: 92px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.project-card:nth-child(1)::after { content: "01"; }
+.project-card:nth-child(2)::after { content: "02"; }
+.project-card:nth-child(3)::after { content: "03"; }
+.project-card:nth-child(4)::after { content: "04"; }
 
 .project-type,
 .column-label {
@@ -1276,14 +1460,34 @@ footer > a:last-child:hover {
     padding: 140px 20px 100px;
   }
 
+  .hero-shell {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .hero-copy-block {
+    max-width: 760px;
+  }
+
+  .hero-visual {
+    width: min(82vw, 500px);
+    justify-self: center;
+  }
+
+  .hero h1 {
+    max-width: 760px;
+    font-size: clamp(66px, 11.5vw, 104px);
+  }
+
   .hero-ring-one {
-    width: 290px;
-    height: 290px;
+    width: 68%;
+    height: 68%;
   }
 
   .hero-ring-two {
-    width: 430px;
-    height: 430px;
+    width: 94%;
+    height: 94%;
   }
 
   .about-layout {
@@ -1299,8 +1503,19 @@ footer > a:last-child:hover {
     grid-template-columns: 1fr 1fr;
   }
 
+  .skill-card,
+  .skill-card:nth-child(1),
+  .skill-card:nth-child(2) {
+    grid-column: auto;
+    min-height: 260px;
+  }
+
   .skill-card:nth-child(3n) {
     border-right: 1px solid var(--border);
+  }
+
+  .skill-card:nth-child(n) {
+    border-bottom: 1px solid var(--border);
   }
 
   .skill-card:nth-child(2n) {
@@ -1318,6 +1533,17 @@ footer > a:last-child:hover {
   .career-item {
     grid-template-columns: 140px 1fr;
     gap: 30px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card:first-child,
+  .project-card:last-child {
+    min-height: 360px;
+    grid-row: auto;
+    grid-column: auto;
   }
 }
 
@@ -1342,6 +1568,10 @@ footer > a:last-child:hover {
   .hero {
     min-height: 100svh;
     padding: 112px 16px 64px;
+  }
+
+  .hero-shell {
+    gap: 48px;
   }
 
   .hero h1 {
@@ -1371,6 +1601,34 @@ footer > a:last-child:hover {
   .hero-meta {
     align-items: center;
     gap: 8px;
+  }
+
+  .hero-visual {
+    width: min(92vw, 400px);
+  }
+
+  .system-core {
+    width: 132px;
+    height: 132px;
+  }
+
+  .system-core strong {
+    font-size: 52px;
+  }
+
+  .system-core span {
+    font-size: 6px;
+  }
+
+  .system-node {
+    padding: 5px 7px;
+    font-size: 7px;
+  }
+
+  .visual-caption {
+    right: 4%;
+    left: 4%;
+    font-size: 7px;
   }
 
   .scroll-hint {
@@ -1439,6 +1697,11 @@ footer > a:last-child:hover {
     padding: 36px 28px;
   }
 
+  .project-card:first-child,
+  .project-card:last-child {
+    min-height: 300px;
+  }
+
   .project-card:has(.project-arrow) {
     padding-bottom: 84px;
   }
@@ -1503,13 +1766,13 @@ footer > a:last-child:hover {
   }
 
   .hero-ring-one {
-    width: 240px;
-    height: 240px;
+    width: 68%;
+    height: 68%;
   }
 
   .hero-ring-two {
-    width: 340px;
-    height: 340px;
+    width: 94%;
+    height: 94%;
   }
 
   .eyebrow {
@@ -1518,7 +1781,6 @@ footer > a:last-child:hover {
     letter-spacing: 0.16em;
   }
 
-  .eyebrow::before,
   .eyebrow::after {
     width: 14px;
   }
