@@ -1,6 +1,6 @@
 # JP — Personal Portfolio
 
-A simple personal portfolio website for Jai Prakash showcasing skills, experience, projects, awards, education and contact information.
+A simple personal portfolio website for Jai Prakash showcasing skills, experience, projects, recognition and contact information.
 
 - Live files:
   - [index.html](index.html)
@@ -13,8 +13,7 @@ This static site includes the following sections (see [index.html](index.html)):
 - About / Intro (hero with typing effect)
 - Skills (`#skills`) — Backend, Frontend, Database, Tools & Platforms
 - Experience (`#experience`) — ITOrizon, Ensatus, Qleverlabs with project details
-- Awards (`#awards`)
-- Education (`#education`)
+- Recognition (`#recognition`)
 - Contact / Footer (email, LinkedIn, GitHub)
 
 ## Tech & Libraries
