@@ -815,6 +815,13 @@ body:has(a:hover, button:hover) #cursor-ring {
   to { opacity: 1; }
 }
 
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .marquee {
   overflow: hidden;
   padding: 14px 0;
@@ -828,7 +835,7 @@ body:has(a:hover, button:hover) #cursor-ring {
   width: max-content;
   align-items: center;
   white-space: nowrap;
-  animation: marquee 24s linear infinite;
+  animation: marquee 52s linear infinite;
   will-change: transform;
 }
 
@@ -853,6 +860,22 @@ body:has(a:hover, button:hover) #cursor-ring {
 .marquee b {
   padding: 0;
   color: var(--amber);
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.marquee-item svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: var(--amber);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
 }
 
 @keyframes marquee {
