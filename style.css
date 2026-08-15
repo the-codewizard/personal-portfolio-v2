@@ -824,6 +824,15 @@ body:has(a:hover, button:hover) #cursor-ring {
   align-items: center;
   white-space: nowrap;
   animation: marquee 24s linear infinite;
+  will-change: transform;
+}
+
+.marquee-group {
+  display: flex;
+  min-width: 100vw;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .marquee span,
@@ -1147,16 +1156,6 @@ section:not(.hero) {
   transition: background 0.3s, transform 0.35s;
 }
 
-.project-card:first-child {
-  grid-row: span 2;
-  min-height: 680px;
-}
-
-.project-card:last-child {
-  grid-column: 1 / -1;
-  min-height: 360px;
-}
-
 .project-card:has(.project-arrow) {
   padding-bottom: 90px;
 }
@@ -1199,42 +1198,43 @@ section:not(.hero) {
 
 .project-logo-mark {
   display: inline-flex;
-  width: 82px;
-  height: 36px;
+  width: 58px;
+  height: 58px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-bottom: 18px;
-  padding: 6px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 4px;
-  background: #f7f7f8;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-  transition: box-shadow 0.2s, transform 0.2s;
+  margin-bottom: 22px;
+  border: 1px solid rgba(245, 201, 122, 0.22);
+  border-radius: 15px;
+  background:
+    linear-gradient(145deg, rgba(245, 201, 122, 0.1), rgba(245, 201, 122, 0.025)),
+    rgba(255, 255, 255, 0.015);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.2);
+  color: var(--amber);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 
-.project-logo-mark img {
+.project-logo-mark svg {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: 66px;
-  max-height: 24px;
-}
-
-.project-logo-mark img.karolium-logo {
-  width: 72px;
-  max-width: none;
-  max-height: none;
-}
-
-.project-icon-mark {
-  color: #26336d;
-  font-size: 18px;
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
 }
 
 .project-card:hover .project-logo-mark {
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
-  transform: translateY(-2px);
+  border-color: rgba(245, 201, 122, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 14px 34px rgba(0, 0, 0, 0.28),
+    0 0 24px rgba(245, 201, 122, 0.08);
+  transform: translateY(-3px) rotate(-2deg);
 }
 
 .project-card:focus-visible {
@@ -1538,16 +1538,14 @@ footer > a:last-child:hover {
   .project-grid {
     grid-template-columns: 1fr;
   }
-
-  .project-card:first-child,
-  .project-card:last-child {
-    min-height: 360px;
-    grid-row: auto;
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 640px) {
+  .site-header {
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-left: max(16px, env(safe-area-inset-left));
+  }
+
   .site-loader {
     padding: 24px 18px 28px;
   }
@@ -1567,11 +1565,16 @@ footer > a:last-child:hover {
 
   .hero {
     min-height: 100svh;
-    padding: 112px 16px 64px;
+    padding: 96px 16px 64px;
   }
 
   .hero-shell {
-    gap: 48px;
+    gap: 42px;
+  }
+
+  .hero-visual {
+    width: min(78vw, 320px);
+    order: -1;
   }
 
   .hero h1 {
@@ -1583,28 +1586,27 @@ footer > a:last-child:hover {
     font-size: 12px;
   }
 
-  .hero-actions,
+  .hero-actions {
+    width: 100%;
+    max-width: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .hero-actions .button {
+    width: auto;
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 9px;
+    letter-spacing: 0.11em;
+  }
+
   .hero-meta {
     width: 100%;
     flex-direction: column;
-  }
-
-  .hero-actions {
-    max-width: 350px;
-  }
-
-  .button {
-    width: 100%;
-    min-height: 50px;
-  }
-
-  .hero-meta {
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-  }
-
-  .hero-visual {
-    width: min(92vw, 400px);
   }
 
   .system-core {
@@ -1697,11 +1699,6 @@ footer > a:last-child:hover {
     padding: 36px 28px;
   }
 
-  .project-card:first-child,
-  .project-card:last-child {
-    min-height: 300px;
-  }
-
   .project-card:has(.project-arrow) {
     padding-bottom: 84px;
   }
@@ -1744,8 +1741,8 @@ footer > a:last-child:hover {
 
 @media (max-width: 400px) {
   .site-header {
-    padding-right: max(14px, env(safe-area-inset-right));
-    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-left: max(16px, env(safe-area-inset-left));
   }
 
   .hero h1 {
