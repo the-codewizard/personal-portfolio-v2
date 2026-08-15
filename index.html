@@ -358,9 +358,39 @@
       </div>
     </section>
 
+    <section class="github-activity section-dark" id="github" aria-labelledby="github-title">
+      <div class="container">
+        <div class="section-kicker reveal">05 — Open Source</div>
+        <h2 class="section-title reveal" id="github-title">Building in public,<br><em>one commit at a time.</em></h2>
+        <div class="github-stats reveal" aria-live="polite">
+          <div class="github-stat">
+            <strong id="githubContributions">—</strong>
+            <span>Contributions</span>
+          </div>
+          <div class="github-stat">
+            <strong id="githubFollowers">—</strong>
+            <span>Followers</span>
+          </div>
+          <div class="github-stat">
+            <strong id="githubStars">—</strong>
+            <span>Total stars</span>
+          </div>
+        </div>
+        <div class="github-calendar-shell reveal">
+          <div class="calendar" id="githubCalendar">Loading GitHub activity…</div>
+          <noscript>
+            <p class="github-fallback">Enable JavaScript to view GitHub activity.</p>
+          </noscript>
+        </div>
+        <a class="github-profile-link reveal" href="https://github.com/the-codewizard" target="_blank" rel="noopener noreferrer">
+          View GitHub profile <span>↗</span>
+        </a>
+      </div>
+    </section>
+
     <section class="recognition section-dark" id="recognition">
       <div class="container">
-        <div class="section-kicker reveal">05 — Recognition &amp; Education</div>
+        <div class="section-kicker reveal">06 — Recognition &amp; Education</div>
         <h2 class="section-title reveal">Milestones that mark<br><em>the journey.</em></h2>
         <div class="recognition-layout">
           <div class="recognition-column">
@@ -396,7 +426,7 @@
     <section class="contact" id="contact">
       <div class="contact-glow" aria-hidden="true"></div>
       <div class="container contact-inner">
-        <div class="section-kicker centered reveal">06 — Let's build</div>
+        <div class="section-kicker centered reveal">07 — Let's build</div>
         <h2 class="section-title reveal">Have a complex problem?<br><em>Let's make it simple.</em></h2>
         <p class="reveal">I'm always interested in thoughtful products, ambitious engineering challenges, and conversations with good people.</p>
         <a class="email-link reveal" href="mailto:jaiprakash1595@gmail.com">jaiprakash1595@gmail.com <span>↗</span></a>
@@ -530,6 +560,130 @@
     updateTime();
     setInterval(updateTime, 60000);
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const githubUsername = 'the-codewizard';
+    const setGithubStat = (id, value) => {
+      document.getElementById(id).textContent = Number(value).toLocaleString('en-IN');
+    };
+
+    const renderGithubCalendar = (data) => {
+      const calendar = document.getElementById('githubCalendar');
+      const contributions = data.contributions;
+      if (!Array.isArray(contributions) || !contributions.length) {
+        throw new Error('No GitHub contribution data');
+      }
+
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const scrollArea = document.createElement('div');
+      const content = document.createElement('div');
+      const months = document.createElement('div');
+      const chart = document.createElement('div');
+      const weekdays = document.createElement('div');
+      const days = document.createElement('div');
+      let previousMonth = -1;
+
+      scrollArea.className = 'github-calendar-scroll';
+      content.className = 'github-calendar-content';
+      months.className = 'github-calendar-months';
+      chart.className = 'github-calendar-chart';
+      weekdays.className = 'github-calendar-weekdays';
+      days.className = 'github-calendar-days';
+      days.setAttribute('aria-hidden', 'true');
+
+      ['Mon', 'Wed', 'Fri'].forEach((weekday, index) => {
+        const label = document.createElement('span');
+        label.textContent = weekday;
+        label.style.gridRow = String(index * 2 + 2);
+        weekdays.appendChild(label);
+      });
+
+      contributions.forEach((contribution, index) => {
+        const date = new Date(`${contribution.date}T00:00:00Z`);
+        const month = date.getUTCMonth();
+        if (month !== previousMonth) {
+          const label = document.createElement('span');
+          label.textContent = monthNames[month];
+          label.style.gridColumn = String(Math.floor(index / 7) + 1);
+          months.appendChild(label);
+          previousMonth = month;
+        }
+
+        const day = document.createElement('span');
+        const contributionLabel = contribution.count === 1 ? 'contribution' : 'contributions';
+        day.className = 'github-calendar-day';
+        day.dataset.level = String(contribution.level);
+        day.title = `${contribution.count} ${contributionLabel} on ${date.toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          timeZone: 'UTC'
+        })}`;
+        days.appendChild(day);
+      });
+
+      const contributionCount = Number(data.total?.lastYear)
+        || contributions.reduce((total, contribution) => total + contribution.count, 0);
+      const footer = document.createElement('div');
+      footer.className = 'github-calendar-footer';
+      footer.innerHTML = `
+        <span>${contributionCount.toLocaleString('en-IN')} contributions in the last year</span>
+        <span class="github-calendar-legend" aria-hidden="true">
+          Less
+          <i data-level="0"></i><i data-level="1"></i><i data-level="2"></i><i data-level="3"></i><i data-level="4"></i>
+          More
+        </span>
+      `;
+
+      chart.append(weekdays, days);
+      content.append(months, chart);
+      scrollArea.appendChild(content);
+      calendar.replaceChildren(scrollArea, footer);
+      calendar.setAttribute('aria-label', `${contributionCount} GitHub contributions in the last year`);
+      setGithubStat('githubContributions', contributionCount);
+    };
+
+    fetch(`https://github-contributions-api.jogruber.de/v4/${githubUsername}?y=last`)
+      .then((response) => {
+        if (!response.ok) throw new Error('Unable to load GitHub contributions');
+        return response.json();
+      })
+      .then(renderGithubCalendar)
+      .catch(() => {
+        document.getElementById('githubCalendar').textContent = 'GitHub activity is temporarily unavailable.';
+      });
+
+    const fetchOwnedRepositories = async (page = 1, repositories = []) => {
+      const response = await fetch(
+        `https://api.github.com/users/${githubUsername}/repos?type=owner&per_page=100&page=${page}`
+      );
+      if (!response.ok) throw new Error('Unable to load GitHub repositories');
+
+      const pageRepositories = await response.json();
+      const allRepositories = repositories.concat(pageRepositories);
+      return pageRepositories.length === 100
+        ? fetchOwnedRepositories(page + 1, allRepositories)
+        : allRepositories;
+    };
+
+    const fetchGithubData = async () => {
+      const [profileResponse, repositories] = await Promise.all([
+        fetch(`https://api.github.com/users/${githubUsername}`),
+        fetchOwnedRepositories()
+      ]);
+
+      if (!profileResponse.ok) throw new Error('Unable to load GitHub profile data');
+
+      const profile = await profileResponse.json();
+      const totalStars = repositories.reduce((total, repository) => total + repository.stargazers_count, 0);
+
+      setGithubStat('githubFollowers', profile.followers);
+      setGithubStat('githubStars', totalStars);
+    };
+
+    fetchGithubData().catch(() => {
+      document.getElementById('githubFollowers').textContent = '—';
+      document.getElementById('githubStars').textContent = '—';
+    });
   </script>
 </body>
 </html>
